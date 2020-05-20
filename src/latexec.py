@@ -19,7 +19,7 @@ class Latexec:
         self.setting:dict = None
         
         # オブジェクト生成時にsetting.jsonをロードする
-        with open(PATH_MY_SETTING, "rt") as f:
+        with open(PATH_MY_SETTING, "rt", encoding="utf-8") as f:
             self.setting = json.load(f)
             
     
@@ -55,12 +55,12 @@ class Latexec:
         os.mkdir(PATH_MY_LTL)
         os.mkdir(PATH_MY_TEMP)
         
-        with open("default.tex", "rt") as rf:
-            with open(PATH_DEFAULT_TEMPRATE, "wt") as wf:
+        with open("default.tex", "rt", encoding="utf-8") as rf:
+            with open(PATH_DEFAULT_TEMPRATE, "wt", encoding="utf-8") as wf:
                 wf.write(rf.read())
                 
-        with open("help.txt", "rt") as rf:
-            with open(PATH_HELP, "wt") as wf:
+        with open("help.txt", "rt", encoding="utf-8") as rf:
+            with open(PATH_HELP, "wt", encoding="utf-8") as wf:
                 wf.write(rf.read())
         
     
@@ -74,7 +74,7 @@ class Latexec:
         setting[KEY_TEMPS] = {}
         setting[KEY_TEMPS][KEY_DEFAULT_TEMP] = PATH_DEFAULT_TEMPRATE
         
-        with open(PATH_MY_SETTING, "wt") as f:
+        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
             f.write(json.dumps(setting, indent=4))
             
     
@@ -83,8 +83,8 @@ class Latexec:
         
         # .ltl/temp/ にテンプレートファイルを name.tex の名前でコピー
         temp_path = join(PATH_MY_TEMP, name + TEX_EXTENSION)
-        with open(path, "rt") as rf:
-            with open(temp_path, "wt") as wf:
+        with open(path, "rt", encoding="utf-8") as rf:
+            with open(temp_path, "wt", encoding="utf-8") as wf:
                 wf.write(rf.read())
         
         # setting.json にテンプレートファイル情報を登録
@@ -162,7 +162,7 @@ class Latexec:
         
     # setting.jsonの書き換え
     def update(self):
-        with open(PATH_MY_SETTING, "wt") as f:
+        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
             f.write(json.dumps(self.setting, indent=4))
             
             

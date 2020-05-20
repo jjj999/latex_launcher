@@ -80,7 +80,7 @@ def set_header(tex:str,
     """
     
     
-    with open(tex, "rt") as f:
+    with open(tex, "rt", encoding="utf-8") as f:
         lines = f.readlines()
         
     for i, line in enumerate(lines):
@@ -91,5 +91,5 @@ def set_header(tex:str,
         elif isinclude("\\graphicspath{}", line) and fig:
             lines[i] = "\\graphicspath{{{{{}}}}}".format(fig)
             
-    with open(tex, "wt") as f:
+    with open(tex, "wt", encoding="utf-8") as f:
         f.writelines(lines)
