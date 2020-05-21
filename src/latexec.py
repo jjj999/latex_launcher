@@ -139,7 +139,7 @@ class Latexec:
         os.mkdir(project)
         os.mkdir(join(project, DIR_SOURCE))
         os.mkdir(join(project, DIR_FIGURE))
-        os.mkdir(join(project, DIR_TABLE))
+        os.mkdir(join(project, DIR_DATA))
         
         # テンプレートファイルをプロジェクト内にコピー
         use_temp = self.setting[KEY_TEMPS][temp] if temp else self.setting[KEY_CURRENT_TEMP]    # 絶対パス

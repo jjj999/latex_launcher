@@ -53,7 +53,7 @@ PATH_DEFAULT_TEMPRATE = join(PATH_MY_TEMP, "defualt.tex")
 # プロジェクトのディレクトリ構成
 DIR_SOURCE = "src"
 DIR_FIGURE = "fig"
-DIR_TABLE = "table"
+DIR_DATA = "data"
 
 
 # setting.jsonの変数名
