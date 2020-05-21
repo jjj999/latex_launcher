@@ -1,8 +1,28 @@
 import argparse
+import sys
 
 from const import *
+from util import *
 from latexec import Latexec
 
+
+if len(PATH_ENV_BIN) == 0:
+    print("WARNING\n-------\n", 
+          "環境変数にパスが登録されていません．利用するには，",
+          "ダウンロードしたリポジトリ内の [win/unix]/bin/ ",
+          "のパスを環境変数に登録してください．", sep="")
+    sys.exit(-1)
+    
+elif len(PATH_ENV_BIN) > 1:
+    print("WARNING\n-------\n",
+          "環境変数内に latex_launcher を含むパスが複数存在します．",
+          "正常に利用するためには，環境変数内に latex_launcher という",
+          "文字列を含むパスを1つだけに限定してください．", sep="")
+    
+else:
+    # 文字列に変更
+    PATH_ENV_BIN = PATH_ENV_BIN[0]
+    
 
 class ArgumentError(Exception):
     """不正な引数が指定された時raise"""

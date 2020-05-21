@@ -1,6 +1,10 @@
 import os
 from os.path import join, abspath, dirname, expanduser
+import re
 
+
+# プロジェクトリポジトリ名
+PROJECT_NAME = "latex_launcher"
 
 # コマンド名
 COMMAND_TYPE = "command"
@@ -28,8 +32,18 @@ OPTION_WINDOW = "--window"      # テンプレートコードを別ウィンド�
 OPTION_WINDOW_SHORT = "-w"
 
 
-# 固定のパス
+# 環境変数に登録してあるパスから解析されるパス
+PATH_ENV_BIN = [path for path in os.environ["PATH"].split(":") if re.search(PROJECT_NAME, path)]
+PATH_ENV_RES = ""
+PATH_ENV_DEFAULT_TEMPRATE = ""
+PATH_ENV_HELP = ""
+if len(PATH_ENV_BIN) == 1:
+    PATH_ENV_RES = abspath(join(PATH_ENV_BIN[0], "..", "res"))
+    PATH_ENV_DEFAULT_TEMPRATE = join(PATH_ENV_RES, "default.tex")
+    PATH_ENV_HELP = join(PATH_ENV_RES, "help.txt")
 
+
+# 固定のパス
 PATH_MY_LTL = abspath(join(expanduser("~"), ".ltl"))
 PATH_MY_SETTING = join(PATH_MY_LTL, "setting.json")
 PATH_HELP = join(PATH_MY_LTL, "help.txt")

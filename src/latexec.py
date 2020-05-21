@@ -12,6 +12,7 @@ from subfigure import SubFigure
 from window import pop_text_window
 
 
+#   コマンドの処理に対応するクラス
 class Latexec:
     
     
@@ -21,9 +22,66 @@ class Latexec:
         # オブジェクト生成時にsetting.jsonをロードする
         with open(PATH_MY_SETTING, "rt", encoding="utf-8") as f:
             self.setting = json.load(f)
+
+    
+    #   .ltlディレクトリの構築
+    #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+    #   NOTE
+    #   .ltlの構成を変更する場合はここを編集する．
+    @classmethod
+    def make_ltl(cls):
+        if isdir(PATH_MY_LTL):
+            shutil.rmtree(PATH_MY_LTL)
+        os.mkdir(PATH_MY_LTL)
+        os.mkdir(PATH_MY_TEMP)
+        
+        # ダウンロードしたリポジトリ内のデフォルトテンプレートをコピー
+        with open(PATH_ENV_DEFAULT_TEMPRATE, "rt", encoding="utf-8") as rf:
+            with open(PATH_DEFAULT_TEMPRATE, "wt", encoding="utf-8") as wf:
+                wf.write(rf.read())
+                
+        # ダウンロードしたリポジトリ内のhelp.txtをコピー
+        with open(PATH_ENV_HELP, "rt", encoding="utf-8") as rf:
+            with open(PATH_HELP, "wt", encoding="utf-8") as wf:
+                wf.write(rf.read())
+        
+    
+    #   setting.jsonの構築
+    #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+    #   NOTE
+    #   初期のsetting.jsonの内容を変更する場合はここを編集する．
+    @classmethod
+    def configure_json(cls, name):
+        
+        setting = {}
+        
+        setting[KEY_USER_NAME] = name
+        setting[KEY_CURRENT_TEMP] = PATH_DEFAULT_TEMPRATE
+        setting[KEY_CURRENT_PROJECT] = None
+        setting[KEY_TEMPS] = {}
+        setting[KEY_TEMPS][KEY_DEFAULT_TEMP] = PATH_DEFAULT_TEMPRATE
+        
+        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
+            f.write(json.dumps(setting, indent=4))
+            
+
+    #   setting.jsonの書き換え
+    #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+    #   NOTE
+    #   setting.jsonの情報を更新する操作があった場合に最後に呼び出す．
+    def update(self):
+        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
+            f.write(json.dumps(self.setting, indent=4))
             
     
-    # マニュアルをlessで表示
+    #   コマンド用メソッド
+    #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+    #   各コマンドに対応するメソッドを定義していく
+    #
+    #   NOTE
+    #   *   setting.jsonの情報が必要ない場合はクラスメソッドとして定義する．
+    
+    #   マニュアルをlessで表示
     @classmethod  
     def man(cls):
         
@@ -31,9 +89,9 @@ class Latexec:
             print("まず 'ltl setup' を実行し，セットアップを完了させてください．")
         else:
             subprocess.run(["less", PATH_HELP])
-        
     
-    # 初期セットアップ
+            
+    #   初期セットアップ
     @classmethod
     def setup(cls):
         
@@ -47,38 +105,8 @@ class Latexec:
         if isyes(ishelp):
             subprocess.run(["less", PATH_HELP])
             
-            
-    @classmethod
-    def make_ltl(cls):
-        if isdir(PATH_MY_LTL):
-            shutil.rmtree(PATH_MY_LTL)
-        os.mkdir(PATH_MY_LTL)
-        os.mkdir(PATH_MY_TEMP)
-        
-        with open("default.tex", "rt", encoding="utf-8") as rf:
-            with open(PATH_DEFAULT_TEMPRATE, "wt", encoding="utf-8") as wf:
-                wf.write(rf.read())
-                
-        with open("help.txt", "rt", encoding="utf-8") as rf:
-            with open(PATH_HELP, "wt", encoding="utf-8") as wf:
-                wf.write(rf.read())
-        
     
-    @classmethod
-    def configure_json(cls, name):
-        
-        setting = {}
-        
-        setting[KEY_USER_NAME] = name
-        setting[KEY_CURRENT_TEMP] = PATH_DEFAULT_TEMPRATE
-        setting[KEY_TEMPS] = {}
-        setting[KEY_TEMPS][KEY_DEFAULT_TEMP] = PATH_DEFAULT_TEMPRATE
-        
-        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
-            f.write(json.dumps(setting, indent=4))
-            
-    
-    # 使いたいテンプレートファイルと別名を保存
+    #   使いたいテンプレートファイルと別名を保存
     def set_temp(self, path, name):
         
         # .ltl/temp/ にテンプレートファイルを name.tex の名前でコピー
@@ -92,13 +120,13 @@ class Latexec:
         self.update()
         
     
-    # 使用するテンプレートファイルを更新
+    #   使用するテンプレートファイルを更新
     def use(self, name):
         self.setting[KEY_CURRENT_TEMP] = self.setting[KEY_TEMPS][name]
         self.update()
         
     
-    # 新規プロジェクトの立ち上げ
+    #   新規プロジェクトの立ち上げ
     def launch(self,
                name,
                title="",
@@ -129,13 +157,13 @@ class Latexec:
         self.update()
         
     
-    # 現在のプロジェクトディレクトリを変更
+    #   現在のプロジェクトディレクトリを変更
     def start(self, d:str):
         self.setting[KEY_CURRENT_PROJECT] = abspath(d)
         self.update()
         
     
-    # 画像挿入用のテンプレートコードを作成
+    #   画像挿入用のテンプレートコードを作成
     def fig(self, imgs:tuple, width=12, window=True) -> str:
         
         figure = Figure()
@@ -158,12 +186,6 @@ class Latexec:
         # 標準出力に表示
         else:
             print(figure.make())
-        
-        
-    # setting.jsonの書き換え
-    def update(self):
-        with open(PATH_MY_SETTING, "wt", encoding="utf-8") as f:
-            f.write(json.dumps(self.setting, indent=4))
             
             
 if __name__ == "__main__":
