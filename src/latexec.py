@@ -125,6 +125,18 @@ class Latexec:
         self.setting[KEY_CURRENT_TEMP] = self.setting[KEY_TEMPS][name]
         self.update()
         
+        
+    #   指定されたテンプレートファイルを.ltlから削除
+    def rm(self, name):
+        f_name = self.setting[KEY_TEMPS].pop(name)
+        os.remove(f_name)
+        
+        # 現在のテンプレートに設定されている場合はデフォルトに変更
+        if self.setting[KEY_CURRENT_TEMP] == f_name:
+            self.setting[KEY_CURRENT_TEMP] = PATH_DEFAULT_TEMPRATE
+            
+        self.update()
+        
     
     #   新規プロジェクトの立ち上げ
     def launch(self,

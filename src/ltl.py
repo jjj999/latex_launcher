@@ -1,3 +1,11 @@
+
+"""
+ltlのコマンド制御
+
+    NOTE
+    *   例外処理や不正引数の処理はこのファイル内で行なう
+"""
+
 import argparse
 import sys
 
@@ -64,7 +72,7 @@ parser.add_argument("-w",
 # ここからが処理
 args = parser.parse_args()
 if len(args.command) == 0:
-    raise ArgumentError("不正な引数が指定されました．使い方を調べるには 'ltl man' を実行してください．")
+    raise ArgumentError(ERROR_INCORRECT_SYNTAX)
 
 command = args.command[0]
 num_args = len(args.command) - 1
@@ -91,8 +99,18 @@ else:
     elif command == COMMAND_FIGURE and num_args > 0:
         latex.fig(tuple(args.command[1:]), window=args.window)
         
+    elif command == COMMAND_START and num_args == 0:
+        latex.start(".")
+        
     elif command == COMMAND_START and num_args == 1:
         latex.start(args.command[1])
         
+    elif command == COMMAND_REMOVE_TEMP and num_args == 1:
+        
+        if args.command[1] == KEY_DEFAULT_TEMP:
+            raise ArgumentError(ERROR_REMOVE_DEFAULT_TEMP)
+        else:
+            latex.rm(args.command[1])
+        
     else:
-        raise ArgumentError("不正な引数が指定されました．使い方を調べるには 'ltl man' を実行してください．")
+        raise ArgumentError(ERROR_INCORRECT_SYNTAX)

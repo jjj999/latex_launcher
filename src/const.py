@@ -18,6 +18,9 @@ COMMAND_SET_TEMP = "set"        # テンプレートファイルと別名をセ�
 
 COMMAND_USE_TEMP = "use"        # 現在のテンプレートファイルをセット
 
+COMMAND_REMOVE_TEMP = "rm"      # 指定されたテンプレートファイルを.ltlから削除する
+                                # 現在のテンプレートを削除した場合，デフォルトを代わりに設定する
+
 COMMAND_LAUNCH = "launch"       # プロジェクトの生成，引数としてプロジェクト名をとる
 COMMAND_LAUNCH_SHORT = "l"      
 OPTION_PATH = "--path"          # 指定したパス下にプロジェクトディレクトリを作成
@@ -63,6 +66,10 @@ KEY_CURRENT_TEMP = "current_temp"           # 現在指定中のテンプレー�
 KEY_TEMPS = "temps"                         # 設定してあるテンプレートファイルと登録名
 KEY_DEFAULT_TEMP = "default"                # デフォルトのテンプレートの登録名
 
+
+# エラー送出メッセージ
+ERROR_INCORRECT_SYNTAX = "不正な引数が指定されました．使い方を調べるには 'ltl man' を実行してください．"
+ERROR_REMOVE_DEFAULT_TEMP = "デフォルトテンプレートは削除出来ません．"
 
 # その他定数
 TEX_EXTENSION = ".tex"
