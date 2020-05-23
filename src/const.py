@@ -52,6 +52,7 @@ PATH_MY_SETTING = join(PATH_MY_LTL, "setting.json")
 PATH_HELP = join(PATH_MY_LTL, "help.txt")
 PATH_MY_TEMP = join(PATH_MY_LTL, "temp")
 PATH_DEFAULT_TEMPRATE = join(PATH_MY_TEMP, "defualt.tex")
+PATH_RELATIVE_FIG = "../fig/"
 
 # プロジェクトのディレクトリ構成
 DIR_SOURCE = "src"

@@ -162,7 +162,7 @@ class Latexec:
         set_header(tex_file,
                    title=title,
                    author=self.setting[KEY_USER_NAME],
-                   fig=join(project, DIR_FIGURE))
+                   fig=PATH_RELATIVE_FIG)
         
         # 現在のプロジェクトディレクトリを登録
         self.setting[KEY_CURRENT_PROJECT] = project
