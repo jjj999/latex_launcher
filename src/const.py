@@ -47,10 +47,10 @@ if len(PATH_ENV_BIN) == 1:
 
 
 # 固定のパス
-PATH_MY_LTL = abspath(join(expanduser("~"), ".ltl"))
-PATH_MY_SETTING = join(PATH_MY_LTL, "setting.json")
-PATH_HELP = join(PATH_MY_LTL, "help.txt")
-PATH_MY_TEMP = join(PATH_MY_LTL, "temp")
+PATH_MY_TEXL = abspath(join(expanduser("~"), ".texl"))
+PATH_MY_SETTING = join(PATH_MY_TEXL, "setting.json")
+PATH_HELP = join(PATH_MY_TEXL, "help.txt")
+PATH_MY_TEMP = join(PATH_MY_TEXL, "temp")
 PATH_DEFAULT_TEMPRATE = join(PATH_MY_TEMP, "defualt.tex")
 PATH_RELATIVE_FIG = "../fig/"
 

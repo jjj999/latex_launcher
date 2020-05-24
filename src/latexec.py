@@ -24,15 +24,15 @@ class Latexec:
             self.setting = json.load(f)
 
     
-    #   .ltlディレクトリの構築
+    #   .texlディレクトリの構築
     #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
     #   NOTE
-    #   .ltlの構成を変更する場合はここを編集する．
+    #   .texlの構成を変更する場合はここを編集する．
     @classmethod
-    def make_ltl(cls):
-        if isdir(PATH_MY_LTL):
-            shutil.rmtree(PATH_MY_LTL)
-        os.mkdir(PATH_MY_LTL)
+    def make_texl(cls):
+        if isdir(PATH_MY_TEXL):
+            shutil.rmtree(PATH_MY_TEXL)
+        os.mkdir(PATH_MY_TEXL)
         os.mkdir(PATH_MY_TEMP)
         
         # ダウンロードしたリポジトリ内のデフォルトテンプレートをコピー
@@ -86,7 +86,7 @@ class Latexec:
     def man(cls):
         
         if not isfile(PATH_HELP):
-            print("まず 'ltl setup' を実行し，セットアップを完了させてください．")
+            print("まず 'texl setup' を実行し，セットアップを完了させてください．")
         else:
             subprocess.run(["less", PATH_HELP])
     
@@ -96,7 +96,7 @@ class Latexec:
     def setup(cls):
         
         name = input("名前を入力してください: ")
-        cls.make_ltl()                      # .ltlディレクトリの作成
+        cls.make_texl()                      # .texlディレクトリの作成
         cls.configure_json(name)            # setting.jsonの編集
         
         ishelp = input("使い方を確認しますか？[y/n]: ")
@@ -109,7 +109,7 @@ class Latexec:
     #   使いたいテンプレートファイルと別名を保存
     def set_temp(self, path, name):
         
-        # .ltl/temp/ にテンプレートファイルを name.tex の名前でコピー
+        # .texl/temp/ にテンプレートファイルを name.tex の名前でコピー
         temp_path = join(PATH_MY_TEMP, name + TEX_EXTENSION)
         with open(path, "rt", encoding="utf-8") as rf:
             with open(temp_path, "wt", encoding="utf-8") as wf:
@@ -126,7 +126,7 @@ class Latexec:
         self.update()
         
         
-    #   指定されたテンプレートファイルを.ltlから削除
+    #   指定されたテンプレートファイルを.texlから削除
     def rm(self, name):
         f_name = self.setting[KEY_TEMPS].pop(name)
         os.remove(f_name)
