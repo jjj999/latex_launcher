@@ -21,8 +21,8 @@ COMMAND_USE_TEMP = "use"        # 現在のテンプレートファイルをセ�
 COMMAND_REMOVE_TEMP = "rm"      # 指定されたテンプレートファイルを.ltlから削除する
                                 # 現在のテンプレートを削除した場合，デフォルトを代わりに設定する
 
-COMMAND_LAUNCH = "launch"       # プロジェクトの生成，引数としてプロジェクト名をとる
-COMMAND_LAUNCH_SHORT = "l"      
+COMMAND_LAUNCH = "init"       # プロジェクトの生成，引数としてプロジェクト名をとる
+COMMAND_LAUNCH_SHORT = "i"      
 OPTION_PATH = "--path"          # 指定したパス下にプロジェクトディレクトリを作成
 OPTION_PATH_SHORT = "-p"
 OPTION_TEMP = "--temp"          # テンプレートファイルを指定

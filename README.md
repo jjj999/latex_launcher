@@ -13,13 +13,13 @@ latex_launcher という名前通りお好みのプロジェクトをコマン�
 
 1. リポジトリをクローンもしくはダウンロードし，好きな場所に置きます
 2. Unix系の場合は unix/bin/ を，Windowsの場合は win/bin にパスを通します
-3. パスを通したら以下のコマンド ```ltl setup``` を叩きます
+3. パスを通したら以下のコマンド ```texl setup``` を叩きます
 4. 名前を入力し，セットアップを完了させます
-5. 好きな場所でコマンド ```ltl launch [project name]``` を叩くことでプロジェクトを生成します
+5. 好きな場所でコマンド ```texl launch [project name]``` を叩くことでプロジェクトを生成します
 
 ## 基本的な使い方
 
-詳細な使い方は ```ltl man``` を打つと確認できます．ただし，更新は送れるかもしれません．
+詳細な使い方は ```texl man``` を打つと確認できます．ただし，更新は送れるかもしれません．
 ここでは，基本的な使い方について説明します．
 
 latex_launcher ではLaTexソースファイルを作成し，最終的にPDFファイルを生成するために
@@ -44,7 +44,7 @@ src ディレクトリ下にテンプレートファイルが生成されます�
 プロジェクトの作成は以下のコマンドで行います．
 
 ```
-ltl launch [--path] [--temp] [--title] [project name]
+texl launch [--path] [--temp] [--title] [project name]
 ```
 
 上記のコマンドで，[project name] の名前を持ったディレクトリが生成されます．
@@ -78,7 +78,7 @@ latex_launcher ではお好みのカスタマイズしたテンプレートフ�
 登録するには set コマンドを実行します．
 
 ```
-ltl set [temp file] [name]
+texl set [temp file] [name]
 ```
 
 このコマンドで [temp file] に指定したtexファイルを [name] という名前で登録します．
@@ -89,7 +89,7 @@ ltl set [temp file] [name]
 「現在のテンプレート」に設定するには use コマンドを使います．
 
 ```
-ltl use [name]
+texl use [name]
 ```
 
 上のコマンドにおける [name] は set コマンドにおける [name] と一致している必要があります．
@@ -108,7 +108,7 @@ ltl use [name]
 テンプレートを削除するには rm コマンドを使います．
 
 ```
-ltl rm [name]
+texl rm [name]
 ```
 
 上のコマンドにおける [name] は set コマンドで登録した際の [name] である必要があります．
@@ -123,7 +123,7 @@ ltl rm [name]
 「現在のプロジェクト」に登録するには start コマンドを実行します．
 
 ```
-ltl start [[path]]
+texl start [[path]]
 ```
 
 カレントディレクトリが設定したいプロジェクトのディレクトリである場合は [path] には何も与える必要はありません．
@@ -138,7 +138,7 @@ lanch コマンドでプロジェクトを立ち上げた場合は，「現在�
 そのようなときは，以下のコマンドを叩くと画像挿入のテンプレートコードを出力できます．
 
 ```
-ltl fig [--window] [image file]
+texl fig [--window] [image file]
 ```
 
 上のコマンドを叩くと [image file] で指定した画像ファイルを挿入するテンプレートコードが出力されます．
