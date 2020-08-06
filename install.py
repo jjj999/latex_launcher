@@ -4,4 +4,4 @@ import PyInstaller.__main__
 
 PyInstaller.__main__.run(["--name=texl",
                           "--onefile",
-                          join("texl", "texl.py")])
+                          join("texl", "_cmd.py")])
