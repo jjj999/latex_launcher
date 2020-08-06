@@ -30,19 +30,19 @@ class Latexec:
     #   NOTE
     #   .texlの構成を変更する場合はここを編集する．
     @classmethod
-    def make_texl(cls):
+    def make_texl(cls, path_res):
         if isdir(PATH_MY_TEXL):
             shutil.rmtree(PATH_MY_TEXL)
         os.mkdir(PATH_MY_TEXL)
         os.mkdir(PATH_MY_TEMP)
         
         # ダウンロードしたリポジトリ内のデフォルトテンプレートをコピー
-        with open(PATH_ENV_DEFAULT_TEMPRATE, "rt", encoding="utf-8") as rf:
+        with open(join(path_res, "default.tex"), "rt", encoding="utf-8") as rf:
             with open(PATH_DEFAULT_TEMPRATE, "wt", encoding="utf-8") as wf:
                 wf.write(rf.read())
                 
         # ダウンロードしたリポジトリ内のhelp.txtをコピー
-        with open(PATH_ENV_HELP, "rt", encoding="utf-8") as rf:
+        with open(join(path_res, "help.txt"), "rt", encoding="utf-8") as rf:
             with open(PATH_HELP, "wt", encoding="utf-8") as wf:
                 wf.write(rf.read())
         
@@ -97,7 +97,9 @@ class Latexec:
     def setup(cls):
         
         name = input("名前を入力してください: ")
-        cls.make_texl()                      # .texlディレクトリの作成
+        if not os.path.exists(PATH_MY_TEXL):
+            cls.make_texl()
+            
         cls.configure_json(name)            # setting.jsonの編集
         
         ishelp = input("使い方を確認しますか？[y/n]: ")
